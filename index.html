@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jessie Math 捷析 - 立體形體</title>
+
+    <meta name="description" content="© 2025–2026 Jessie Math 捷析老師. All rights reserved.">
+    <meta property="og:title" content="Jessie Math 捷析 - 立體形體">
+    <meta property="og:description" content="© 2025–2026 Jessie Math 捷析老師. All rights reserved.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="g5-u5.png">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1536">
+    <meta property="og:image:alt" content="Jessie Math 遊戲封面">
+    <link rel="image_src" href="g5-u5.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jessie Math 捷析 - 立體形體">
+    <meta name="twitter:description" content="© 2025–2026 Jessie Math 捷析老師. All rights reserved.">
+    <meta name="twitter:image" content="g5-u5.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --secondary: #8E44AD;
+            --accent: #F39C12;
+            --bg: #F8F9FA;
+            --text: #333;
+            --white: #FFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Microsoft JhengHei', sans-serif;
+            user-select: none; /* 避免計算白板時反白文字 */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            /* 加入背景圖並設定對齊左上角 */
+            background-image: url('jessie logo.jpg');
+            background-size: cover;
+            background-position: top left;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* --- Header 樣式 --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.95); /* 稍微透明以搭配背景 */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #E67E22;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: transparent;
+        }
+
+        .logo-circle img {
+            width: 90%;
+            height: auto;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #2C3E50;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+            border: 1px solid #4A90E2;
+            color: #4A90E2;
+            background-color: var(--white);
+        }
+
+        .nav-btn:hover {
+            background-color: #4A90E2;
+            color: var(--white);
+        }
+
+        .nav-btn.purple {
+            border-color: #9B59B6;
+            color: #9B59B6;
+            background-color: #F5EEF8;
+        }
+
+        .nav-btn.purple:hover {
+            background-color: #9B59B6;
+            color: var(--white);
+        }
+
+        /* --- 頁面容器 --- */
+        .page {
+            display: none;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            /* 背景加上微透明，讓後面滿版背景不干擾文字 */
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- UI 元素 --- */
+        h2 { color: var(--secondary); text-align: center; }
+        
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .btn-primary:hover { background-color: #357ABD; }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            background-color: #E74C3C;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* --- 遊戲大廳 --- */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .leaderboard {
+            margin-top: 30px;
+            border-top: 2px dashed #eee;
+            padding-top: 20px;
+        }
+        
+        .leaderboard table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .leaderboard th, .leaderboard td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* --- 遊戲畫面 --- */
+        .hud {
+            display: flex;
+            justify-content: space-between;
+            background: #2C3E50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .hud span { color: #F1C40F; }
+
+        .question-box {
+            font-size: 22px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+            padding: 20px;
+            background: #EBF5FB;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #questionVisual {
+            height: 120px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        #questionVisual svg {
+            height: 100%;
+            max-width: 100%;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .option-btn {
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid var(--primary);
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option-btn:hover { background: #D6EAF8; }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- 計算白板 --- */
+        #whiteboard-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* 預設不擋住點擊 */
+            z-index: 20;
+        }
+
+        #whiteboard {
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+        
+        .whiteboard-active #whiteboard-container {
+            pointer-events: auto; /* 開啟時可畫畫 */
+            background: rgba(255,255,255,0.2);
+            border: 2px dashed var(--primary);
+        }
+
+        #game-area {
+            position: relative;
+        }
+
+        /* --- 老師彈出視窗 --- */
+        .teacher-popup {
+            position: fixed;
+            bottom: 20px;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+        }
+
+        .teacher-popup.show { transform: translateY(0); }
+
+        .teacher-popup.left { left: 20px; flex-direction: row; }
+        .teacher-popup.right { right: 20px; flex-direction: row-reverse; }
+
+        .teacher-img { width: 250px; height: auto; }
+
+        .speech-bubble {
+            background: white;
+            border: 3px solid var(--accent);
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            max-width: 200px;
+            position: relative;
+        }
+
+        /* --- Footer 子彈型設計 --- */
+        footer {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .footer-pill {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 30px;
+            border-radius: 50px; /* 子彈型 */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .footer-left, .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+        }
+
+        .footer-copy, .footer-tagline {
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .footer-icon {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        /* --- 手機直向強制橫向遮罩 --- */
+        #orientation-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(44, 62, 80, 0.98);
+            color: white;
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+        .rotate-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--accent);
+            animation: rotatePhone 2s infinite ease-in-out alternate;
+        }
+        @keyframes rotatePhone {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(90deg); }
+        }
+
+        /* --- RWD --- */
+        @media (max-width: 768px) {
+            .settings-grid, .options-grid { grid-template-columns: 1fr; }
+            .brand h1 { font-size: 18px; }
+            .nav-links { justify-content: flex-start; width: 100%; margin-top: 10px;}
+            .teacher-img { width: 150px; }
+            .hud { flex-direction: column; gap: 10px; text-align: center;}
+            .footer-pill { justify-content: center; flex-direction: column; gap: 10px; text-align: center; }
+        }
+
+        /* 偵測手機 (寬度小於 767) 且直向時，顯示旋轉提示並隱藏內容 */
+        @media screen and (max-width: 767px) and (orientation: portrait) {
+            #orientation-overlay {
+                display: flex;
+            }
+            header, .page, footer {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="orientation-overlay">
+        <i class="fas fa-mobile-alt rotate-icon"></i>
+        <p>請將手機旋轉至橫向<br>以獲得最佳遊戲體驗喔！</p>
+    </div>
+
+    <header>
+        <div class="brand">
+            <div class="logo-circle">
+                <img src="JESSIEMATH-Q.png" alt="Jessie Math Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'50\' font-size=\'20\'>Logo</text></svg>'">
+            </div>
+            <h1>Jessie Math捷析</h1>
+        </div>
+        <div class="nav-links">
+            <a href="https://jessiemath0703-chu.github.io/website2/" class="nav-btn" target="_blank">🏠 首頁</a>
+            <a href="https://jessiemath0703-chu.github.io/Game-Lobby/" class="nav-btn" target="_blank">🎮 遊戲大廳</a>
+            <a href="https://jessiemath0703-chu.github.io/Game-Lobby/#g5-u5" class="nav-btn purple" target="_blank">🔙 G5立體形體</a>
+        </div>
+    </header>
+
+    <div id="page1" class="page active">
+        <h2>歡迎來到 G5 立體形體挑戰</h2>
+        <div style="background: #FFF3E0; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <h3>📜 遊戲規則說明</h3>
+            <ul>
+                <li><strong>計時挑戰：</strong>根據難度有不同時間限制。</li>
+                <li><strong>加扣分機制：</strong>答對加 5 秒，答錯扣 5 秒！</li>
+                <li><strong>Combo 連擊：</strong>連續答對越多題，分數加倍率越高！</li>
+                <li><strong>全新圖解題庫：</strong>每次遊玩題目與數值都會隨機變化！</li>
+                <li><strong>計算白板：</strong>遇到需要思考的題目，可隨時開啟透明白板計算。</li>
+            </ul>
+        </div>
+        <input type="text" id="playerName" placeholder="請輸入你的英雄名稱 (必填)" required>
+        <button class="btn-primary" onclick="goToPage(2)">進入遊戲大廳</button>
+    </div>
+
+    <div id="page2" class="page">
+        <h2>🎮 關卡與難度選擇</h2>
+        <div class="settings-grid">
+            <div>
+                <label>選擇關卡：</label>
+                <select id="levelSelect">
+                    <option value="0">第一關：面的垂直和平行</option>
+                    <option value="1">第二關：角柱與圓柱</option>
+                    <option value="2">第三關：角錐與圓錐</option>
+                    <option value="3">第四關：球體</option>
+                </select>
+            </div>
+            <div>
+                <label>選擇難度：</label>
+                <select id="diffSelect">
+                    <option value="90">基礎 (90秒)</option>
+                    <option value="60">進階 (60秒)</option>
+                    <option value="45">魔王 (45秒)</option>
+                </select>
+            </div>
+        </div>
+        <button class="btn-primary" onclick="startGame()" style="margin-top: 20px;">開始挑戰</button>
+
+        <div class="leaderboard">
+            <h3>🏆 英雄排行榜 (Top 10)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>名次</th>
+                        <th>玩家</th>
+                        <th>關卡</th>
+                        <th>難度</th>
+                        <th>分數/總題數</th>
+                        <th>日期</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboardBody">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="page3" class="page">
+        <div class="hud">
+            <div>時間：<span id="timeDisplay">90</span> 秒</div>
+            <div>分數：<span id="scoreDisplay">0</span></div>
+            <div>Combo：<span id="comboDisplay">0</span> 連擊</div>
+        </div>
+
+        <div id="game-area">
+            <div id="whiteboard-container">
+                <canvas id="whiteboard"></canvas>
+            </div>
+
+            <div class="question-box">
+                <div id="questionVisual"></div>
+                <div id="questionText">題目載入中...</div>
+            </div>
+            <div class="options-grid" id="optionsContainer">
+                </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-secondary" onclick="togglePause()" id="pauseBtn">⏸ 暫停</button>
+            <button class="btn-secondary" onclick="toggleWhiteboard()" id="wbBtn" style="background:#8E44AD;">🖍 開啟計算白板</button>
+            <button class="btn-secondary" onclick="abortGame()" style="background:#7F8C8D;">🔙 回主選單</button>
+        </div>
+    </div>
+
+    <div id="page4" class="page">
+        <h2>🎉 挑戰結束！</h2>
+        <div style="text-align: center; font-size: 20px; margin-bottom: 20px;">
+            <p>玩家：<strong id="finalName"></strong></p>
+            <p>最終分數：<strong id="finalScore" style="color:var(--accent); font-size: 28px;"></strong></p>
+            <p>答對：<span id="correctCount" style="color:green;"></span> / <span class="totalCount"></span> 題</p>
+            <p>答錯：<span id="wrongCount" style="color:red;"></span> / <span class="totalCount"></span> 題</p>
+        </div>
+
+        <div id="reviewSection" style="background: #FDEDEC; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <h3>💡 復盤機制：錯題回顧</h3>
+            <ul id="wrongList" style="line-height: 1.6;"></ul>
+        </div>
+
+        <button class="btn-primary" onclick="goToPage(2); renderLeaderboard();">回遊戲大廳</button>
+    </div>
+
+    <div id="teacherPopup" class="teacher-popup left">
+        <img id="teacherImg" class="teacher-img" src="jessie.png" alt="Teacher Jessie" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'40\' fill=\'pink\'/><text x=\'20\' y=\'55\'>Teacher</text></svg>'">
+        <div class="speech-bubble" id="teacherMsg">加油！</div>
+    </div>
+
+    <footer>
+        <div class="footer-pill">
+            <div class="footer-left">
+                <div class="footer-dot" aria-hidden="true"></div>
+                <div class="footer-copy">© 2025–2026 Jessie Math 捷析老師. All rights reserved.</div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-icon" aria-hidden="true"><i class="fas fa-compass"></i></div>
+                <div class="footer-tagline">數學不迷路，捷析Jessie帶你走向理解。</div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    // --- 高階動態圖片圖示生成器 (透過畫家演算法完美呈現立體感) ---
+    function getPrismSvg(n, color) {
+        if (n === 'circle') {
+            return `<svg viewBox="0 0 100 100">
+                <ellipse cx="50" cy="78" rx="35" ry="12" fill="#FFFFFF" stroke="${color}" stroke-width="3"/>
+                <rect x="15" y="22" width="70" height="56" fill="#FFFFFF" stroke="none" />
+                <path d="M 15 78 A 35 12 0 0 0 85 78" fill="none" stroke="${color}" stroke-width="3" />
+                <line x1="15" y1="22" x2="15" y2="78" stroke="${color}" stroke-width="3"/>
+                <line x1="85" y1="22" x2="85" y2="78" stroke="${color}" stroke-width="3"/>
+                <ellipse cx="50" cy="22" rx="35" ry="12" fill="#FFFFFF" stroke="${color}" stroke-width="3"/>
+            </svg>`;
+        }
+
+        let offset = (n % 2 === 0) ? Math.PI / n : -Math.PI / 2;
+        let points = [];
+        for (let i = 0; i < n; i++) {
+            let angle = offset + (i * 2 * Math.PI / n);
+            points.push({
+                x: 50 + 35 * Math.cos(angle),
+                yTop: 22 + 12 * Math.sin(angle),
+                yBot: 78 + 12 * Math.sin(angle),
+                z: Math.sin(angle) // Z深度：數字越小代表越靠後
+            });
+        }
+
+        let svg = `<svg viewBox="0 0 100 100">`;
+        
+        // 1. 畫底面 (在最後方)
+        let botPts = points.map(p => `${p.x.toFixed(1)},${p.yBot.toFixed(1)}`).join(' ');
+        svg += `<polygon points="${botPts}" fill="#FFFFFF" stroke="${color}" stroke-width="3" stroke-linejoin="round"/>`;
+
+        // 2. 準備側面並依照 Z 軸深度排序 (由後往前畫)
+        let sideFaces = [];
+        for (let i = 0; i < n; i++) {
+            let j = (i + 1) % n;
+            sideFaces.push({
+                pts: `${points[i].x.toFixed(1)},${points[i].yTop.toFixed(1)} ${points[j].x.toFixed(1)},${points[j].yTop.toFixed(1)} ${points[j].x.toFixed(1)},${points[j].yBot.toFixed(1)} ${points[i].x.toFixed(1)},${points[i].yBot.toFixed(1)}`,
+                z: points[i].z + points[j].z // 面對準的深度
+            });
+        }
+        sideFaces.sort((a, b) => a.z - b.z); // 畫家演算法排序
+
+        sideFaces.forEach(face => {
+            svg += `<polygon points="${face.pts}" fill="#FFFFFF" stroke="${color}" stroke-width="3" stroke-linejoin="round"/>`;
+        });
+
+        // 3. 畫頂面 (在最前方)
+        let topPts = points.map(p => `${p.x.toFixed(1)},${p.yTop.toFixed(1)}`).join(' ');
+        svg += `<polygon points="${topPts}" fill="#FFFFFF" stroke="${color}" stroke-width="3" stroke-linejoin="round"/>`;
+        
+        svg += `</svg>`;
+        return svg;
+    }
+
+    function getPyramidSvg(n, color) {
+        if (n === 'circle') {
+            return `<svg viewBox="0 0 100 100">
+                <ellipse cx="50" cy="80" rx="35" ry="12" fill="#FFFFFF" stroke="${color}" stroke-width="3"/>
+                <polygon points="15,80 50,10 85,80" fill="#FFFFFF" stroke="none" />
+                <path d="M 15 80 A 35 12 0 0 0 85 80" fill="none" stroke="${color}" stroke-width="3" />
+                <line x1="50" y1="10" x2="15" y2="80" stroke="${color}" stroke-width="3"/>
+                <line x1="50" y1="10" x2="85" y2="80" stroke="${color}" stroke-width="3"/>
+            </svg>`;
+        }
+
+        let offset = (n % 2 === 0) ? Math.PI / n : -Math.PI / 2;
+        let points = [];
+        for (let i = 0; i < n; i++) {
+            let angle = offset + (i * 2 * Math.PI / n);
+            points.push({
+                x: 50 + 35 * Math.cos(angle),
+                y: 80 + 12 * Math.sin(angle),
+                z: Math.sin(angle)
+            });
+        }
+
+        let svg = `<svg viewBox="0 0 100 100">`;
+        
+        // 1. 畫底面
+        let botPts = points.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+        svg += `<polygon points="${botPts}" fill="#FFFFFF" stroke="${color}" stroke-width="3" stroke-linejoin="round"/>`;
+
+        // 2. 準備側面並排序 (由後往前畫，確保實心遮蔽效果)
+        let sideFaces = [];
+        for (let i = 0; i < n; i++) {
+            let j = (i + 1) % n;
+            sideFaces.push({
+                pts: `50,10 ${points[i].x.toFixed(1)},${points[i].y.toFixed(1)} ${points[j].x.toFixed(1)},${points[j].y.toFixed(1)}`,
+                z: points[i].z + points[j].z
+            });
+        }
+        sideFaces.sort((a, b) => a.z - b.z);
+
+        sideFaces.forEach(face => {
+            svg += `<polygon points="${face.pts}" fill="#FFFFFF" stroke="${color}" stroke-width="3" stroke-linejoin="round"/>`;
+        });
+        
+        svg += `</svg>`;
+        return svg;
+    }
+
+    const svgs = {
+        cube: `<svg viewBox="0 0 100 100">
+            <polygon points="30,40 45,25 85,25 70,40" fill="#FFFFFF" stroke="#4A90E2" stroke-width="3" stroke-linejoin="round"/>
+            <polygon points="70,40 85,25 85,65 70,80" fill="#FFFFFF" stroke="#4A90E2" stroke-width="3" stroke-linejoin="round"/>
+            <polygon points="30,40 70,40 70,80 30,80" fill="#FFFFFF" stroke="#4A90E2" stroke-width="3" stroke-linejoin="round"/>
+        </svg>`,
+        sphere: `<svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="#FFFFFF" stroke="#2ECC71" stroke-width="3"/>
+            <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#2ECC71" stroke-width="3" stroke-dasharray="6 6"/>
+            <path d="M 10 50 A 40 12 0 0 1 90 50" fill="none" stroke="#2ECC71" stroke-width="3"/>
+        </svg>`
+    };
+
+    const numToChinese = {3:'三', 4:'四', 5:'五', 6:'六', 7:'七', 8:'八', 9:'九', 10:'十', 11:'十一', 12:'十二'};
+
+    // --- 無限動態題目生成器 ---
+    function generateQuestions(level, count = 10) {
+        let questions = [];
+        let usedKeys = new Set(); // 確保同一輪內題目不重複
+
+        while(questions.length < count) {
+            let qObj = null;
+            let qKey = "";
+
+            if (level === 0) {
+                // 第一關：面的垂直和平行
+                let templates = [
+                    { q: "長方體中，相對的面會互相？", ans: "平行", wrong: ["垂直", "重合", "交叉"], svg: svgs.cube },
+                    { q: "正方體中，相鄰的面會互相？", ans: "垂直", wrong: ["平行", "重合", "不一定"], svg: svgs.cube },
+                    { q: "正方體的每一個面都會和幾個面互相垂直？", ans: "4個", wrong: ["1個", "2個", "3個"], svg: svgs.cube },
+                    { q: "長方體中，互相平行的面共有幾組？", ans: "3組", wrong: ["1組", "2組", "4組"], svg: svgs.cube },
+                    { q: "用長方體檢查兩個平面，如果相鄰兩面完全貼合，這兩個平面？", ans: "互相垂直", wrong: ["互相平行", "互相重合", "長度一樣"], svg: svgs.cube },
+                    { q: "教室的天花板和地板通常會互相？", ans: "平行", wrong: ["垂直", "交叉", "重疊"], svg: svgs.cube },
+                    { q: "書桌的桌面和房間的牆壁通常會互相？", ans: "垂直", wrong: ["平行", "不一定", "重疊"], svg: svgs.cube },
+                    { q: "在一個長方體中，和同一個面垂直的面共有幾個？", ans: "4個", wrong: ["2個", "6個", "8個"], svg: svgs.cube },
+                    { q: "在一個正方體中，和同一個面平行的面共有幾個？", ans: "1個", wrong: ["2個", "3個", "4個"], svg: svgs.cube },
+                    { q: "長方體相鄰的兩個面相交的線段稱為？", ans: "邊", wrong: ["頂點", "面", "角"], svg: svgs.cube }
+                ];
+                let t = templates[Math.floor(Math.random() * templates.length)];
+                qKey = t.q;
+                if(!usedKeys.has(qKey)) {
+                    qObj = { q: t.q, options: [t.ans, ...t.wrong], ans: 0, svg: t.svg };
+                }
+            }
+            else if (level === 1) {
+                // 第二關：角柱與圓柱 (動態角數)
+                let n = Math.floor(Math.random() * 8) + 3; // 3 到 10角柱
+                let name = numToChinese[n] + "角柱";
+                let type = Math.floor(Math.random() * 6);
+                
+                // 動態判斷要畫什麼柱體
+                let currentSvg = (type === 5) ? getPrismSvg('circle', '#8E44AD') : getPrismSvg(n, '#8E44AD');
+                if (type === 4) currentSvg = getPrismSvg(n, '#8E44AD'); // 通用柱體
+
+                if (type === 0) {
+                    qKey = `${name}有幾個頂點？`;
+                    qObj = { q: qKey, options: [`${2*n}個`, `${3*n}個`, `${n+2}個`, `${n}個`], ans: 0, svg: currentSvg };
+                } else if (type === 1) {
+                    qKey = `${name}有幾條邊？`;
+                    qObj = { q: qKey, options: [`${3*n}條`, `${2*n}條`, `${n+2}條`, `${n}條`], ans: 0, svg: currentSvg };
+                } else if (type === 2) {
+                    qKey = `${name}共有幾個面？`;
+                    qObj = { q: qKey, options: [`${n+2}個`, `${n}個`, `${2*n}個`, `${3*n}個`], ans: 0, svg: currentSvg };
+                } else if (type === 3) {
+                    qKey = `${name}的側面是什麼形狀？`;
+                    qObj = { q: qKey, options: ["長方形", "三角形", "圓形", "梯形"], ans: 0, svg: currentSvg };
+                } else if (type === 4) {
+                    qKey = "所有的柱體都有幾個底面？"; 
+                    qObj = { q: qKey, options: ["2個", "1個", "3個", "0個"], ans: 0, svg: currentSvg };
+                } else {
+                    qKey = "圓柱的側面展開後可能是什麼形狀？";
+                    qObj = { q: qKey, options: ["長方形或平行四邊形", "圓形", "三角形", "扇形"], ans: 0, svg: currentSvg };
+                }
+            }
+            else if (level === 2) {
+                // 第三關：角錐與圓錐 (動態角數)
+                let n = Math.floor(Math.random() * 8) + 3; // 3 到 10角錐
+                let name = numToChinese[n] + "角錐";
+                let type = Math.floor(Math.random() * 6);
+
+                // 動態判斷要畫什麼錐體
+                let currentSvg = (type === 5) ? getPyramidSvg('circle', '#F39C12') : getPyramidSvg(n, '#F39C12');
+                if (type === 4) currentSvg = getPyramidSvg(n, '#F39C12'); // 通用錐體
+
+                if (type === 0) {
+                    qKey = `${name}有幾個頂點？`;
+                    qObj = { q: qKey, options: [`${n+1}個`, `${2*n}個`, `${3*n}個`, `${n}個`], ans: 0, svg: currentSvg };
+                } else if (type === 1) {
+                    qKey = `${name}有幾條邊？`;
+                    qObj = { q: qKey, options: [`${2*n}條`, `${n+1}條`, `${3*n}條`, `${n}條`], ans: 0, svg: currentSvg };
+                } else if (type === 2) {
+                    qKey = `${name}共有幾個面？`;
+                    qObj = { q: qKey, options: [`${n+1}個`, `${n}個`, `${2*n}個`, `${n+2}個`], ans: 0, svg: currentSvg };
+                } else if (type === 3) {
+                    qKey = `${name}的側面是什麼形狀？`;
+                    qObj = { q: qKey, options: ["三角形", "長方形", "圓形", "扇形"], ans: 0, svg: currentSvg };
+                } else if (type === 4) {
+                    qKey = "所有的錐體都有幾個底面？";
+                    qObj = { q: qKey, options: ["1個", "2個", "3個", "0個"], ans: 0, svg: currentSvg };
+                } else {
+                    qKey = "圓錐的側面展開後是什麼形狀？";
+                    qObj = { q: qKey, options: ["扇形", "圓形", "三角形", "長方形"], ans: 0, svg: currentSvg };
+                }
+            }
+            else if (level === 3) {
+                // 第四關：球體 (動態數值)
+                let r = Math.floor(Math.random() * 45) + 5; // 半徑 5 到 50
+                let d = r * 2;
+                let type = Math.floor(Math.random() * 6);
+
+                if (type === 0) {
+                    qKey = `一個半徑 ${r} 公分的球體，通過球心切開的圓形切面，直徑是？`;
+                    qObj = { q: qKey, options: [`${r*2}公分`, `${r}公分`, `${r*4}公分`, `${Math.floor(r/2)}公分`], ans: 0, svg: svgs.sphere };
+                } else if (type === 1) {
+                    qKey = `直徑 ${d} 公分的球體，切面形成的圓半徑最大可能是多少？`;
+                    qObj = { q: qKey, options: [`${d/2}公分`, `${d}公分`, `${d*2}公分`, `${Math.floor(d/4)}公分`], ans: 0, svg: svgs.sphere };
+                } else if (type === 2) {
+                    qKey = "將球體從任意方向切開，切開的面都是什麼形狀？";
+                    qObj = { q: qKey, options: ["圓形", "橢圓形", "半圓形", "扇形"], ans: 0, svg: svgs.sphere };
+                } else if (type === 3) {
+                    qKey = "從球心到球面上任意一點的距離稱為球的？";
+                    qObj = { q: qKey, options: ["半徑", "直徑", "圓周", "切線"], ans: 0, svg: svgs.sphere };
+                } else if (type === 4) {
+                    qKey = `半徑 ${r} 公分的球，不通過球心將球體切開，切面的半徑會？`;
+                    qObj = { q: qKey, options: [`比 ${r} 公分小`, `等於 ${r} 公分`, `比 ${r} 公分大`, `不一定`], ans: 0, svg: svgs.sphere };
+                } else {
+                    qKey = "將球體平分成兩半時，切面形成的圓最大，這個圓的圓心稱為？";
+                    qObj = { q: qKey, options: ["球心", "圓心", "頂點", "中心"], ans: 0, svg: svgs.sphere };
+                }
+            }
+
+            if (qObj && !usedKeys.has(qKey)) {
+                usedKeys.add(qKey);
+                questions.push(qObj);
+            }
+        }
+        return questions;
+    }
+
+    // --- 遊戲狀態變數 ---
+    let playerName = "";
+    let currentLevel = 0;
+    let timeLimit = 0;
+    let timer;
+    let isPaused = false;
+    let score = 0;
+    let combo = 0;
+    let currentQuestions = [];
+    let qIndex = 0;
+    let correctCount = 0;
+    let wrongLog = [];
+    let isWhiteboardOn = false;
+
+    // --- 頁面切換 ---
+    function goToPage(pageNum) {
+        if(pageNum === 2) {
+            playerName = document.getElementById('playerName').value.trim();
+            if(!playerName) {
+                alert("請先輸入英雄名稱喔！");
+                return;
+            }
+            renderLeaderboard();
+        }
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`page${pageNum}`).classList.add('active');
+    }
+
+    // --- 遊戲邏輯 ---
+    function startGame() {
+        currentLevel = parseInt(document.getElementById('levelSelect').value);
+        timeLimit = parseInt(document.getElementById('diffSelect').value);
+        
+        // 每次遊戲使用動態生成 10 題 (確保每次遊玩都有變化)
+        currentQuestions = generateQuestions(currentLevel, 10);
+        
+        // 洗牌選項順序，並重新標記正確答案索引
+        currentQuestions.forEach(q => {
+            let correctText = q.options[0]; // 生成器固定把正確答案放第一位
+            q.options = q.options.sort(() => Math.random() - 0.5);
+            q.ans = q.options.indexOf(correctText);
+        });
+
+        score = 0;
+        combo = 0;
+        qIndex = 0;
+        correctCount = 0;
+        wrongLog = [];
+        isPaused = false;
+        
+        document.getElementById('scoreDisplay').innerText = score;
+        document.getElementById('comboDisplay').innerText = combo;
+        updateTimeDisplay();
+        
+        goToPage(3);
+        loadQuestion();
+        
+        clearInterval(timer);
+        timer = setInterval(tick, 1000);
+        
+        resetWhiteboard();
+    }
+
+    function loadQuestion() {
+        if(qIndex >= currentQuestions.length) {
+            endGame();
+            return;
+        }
+        
+        let q = currentQuestions[qIndex];
+        
+        // 載入題目文字與視覺圖示
+        document.getElementById('questionVisual').innerHTML = q.svg;
+        document.getElementById('questionText').innerText = `Q${qIndex + 1}: ${q.q}`;
+        
+        let optsHtml = "";
+        q.options.forEach((opt, i) => {
+            optsHtml += `<button class="option-btn" onclick="checkAnswer(${i})">${opt}</button>`;
+        });
+        document.getElementById('optionsContainer').innerHTML = optsHtml;
+    }
+
+    function checkAnswer(selectedIdx) {
+        if(isPaused) return;
+        let q = currentQuestions[qIndex];
+        let btns = document.querySelectorAll('.option-btn');
+        
+        if(selectedIdx === q.ans) {
+            // 答對
+            btns[selectedIdx].style.backgroundColor = '#2ECC71';
+            btns[selectedIdx].style.color = 'white';
+            combo++;
+            score += 10 * combo;
+            timeLimit += 5;
+            correctCount++;
+            showTeacherMessage(true);
+        } else {
+            // 答錯
+            btns[selectedIdx].style.backgroundColor = '#E74C3C';
+            btns[selectedIdx].style.color = 'white';
+            btns[q.ans].style.backgroundColor = '#2ECC71'; // 顯示正確答案
+            btns[q.ans].style.color = 'white';
+            combo = 0;
+            timeLimit = Math.max(0, timeLimit - 5);
+            wrongLog.push({ question: q.q, correctAns: q.options[q.ans] });
+            showTeacherMessage(false);
+        }
+        
+        document.getElementById('scoreDisplay').innerText = score;
+        document.getElementById('comboDisplay').innerText = combo;
+        updateTimeDisplay();
+        
+        // 鎖定按鈕
+        btns.forEach(b => b.disabled = true);
+        
+        setTimeout(() => {
+            qIndex++;
+            loadQuestion();
+        }, 1200); // 延遲顯示下一題
+    }
+
+    function tick() {
+        if(isPaused) return;
+        timeLimit--;
+        updateTimeDisplay();
+        if(timeLimit <= 0) {
+            endGame();
+        }
+    }
+
+    function updateTimeDisplay() {
+        document.getElementById('timeDisplay').innerText = timeLimit;
+    }
+
+    function togglePause() {
+        isPaused = !isPaused;
+        document.getElementById('pauseBtn').innerText = isPaused ? "▶ 繼續" : "⏸ 暫停";
+        document.getElementById('optionsContainer').style.opacity = isPaused ? '0.3' : '1';
+    }
+
+    function abortGame() {
+        clearInterval(timer);
+        goToPage(2);
+    }
+
+    function endGame() {
+        clearInterval(timer);
+        saveScore();
+        
+        document.getElementById('finalName').innerText = playerName;
+        document.getElementById('finalScore').innerText = score;
+        document.getElementById('correctCount').innerText = correctCount;
+        document.getElementById('wrongCount').innerText = wrongLog.length;
+        document.querySelectorAll('.totalCount').forEach(e => e.innerText = currentQuestions.length);
+        
+        let reviewHtml = "";
+        if(wrongLog.length === 0) {
+            reviewHtml = "<li>太棒了！全對無錯題！🎉</li>";
+        } else {
+            wrongLog.forEach(w => {
+                reviewHtml += `<li><strong>題目：</strong>${w.question}<br><span style="color:green;">正確解答：${w.correctAns}</span></li>`;
+            });
+        }
+        document.getElementById('wrongList').innerHTML = reviewHtml;
+        
+        goToPage(4);
+    }
+
+    // --- 老師彈出視窗機制 ---
+    const goodMsgs = ["太棒了！", "計算得很完美！", "繼續保持這個節奏！", "你的數學細胞燃燒中！"];
+    const comfortMsgs = ["差一點點，沒關係！", "冷靜思考一下，你可以的！", "加油加油，下次一定對！", "捷析老師陪你一起努力！"];
+
+    function showTeacherMessage(isCorrect) {
+        let popup = document.getElementById('teacherPopup');
+        let msgEl = document.getElementById('teacherMsg');
+        let imgEl = document.getElementById('teacherImg');
+        
+        // 隨機左右
+        popup.classList.remove('left', 'right');
+        let isLeft = Math.random() > 0.5;
+        popup.classList.add(isLeft ? 'left' : 'right');
+        
+        // 切換圖片
+        imgEl.src = isLeft ? 'jessie.png' : 'JESSIEMATH-Q.png';
+        
+        // 訊息
+        let msgs = isCorrect ? goodMsgs : comfortMsgs;
+        msgEl.innerText = msgs[Math.floor(Math.random() * msgs.length)];
+        
+        popup.classList.add('show');
+        setTimeout(() => { popup.classList.remove('show'); }, 2500);
+    }
+
+    // --- 計算白板邏輯 ---
+    const canvas = document.getElementById('whiteboard');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    function resizeCanvas() {
+        let area = document.getElementById('game-area');
+        canvas.width = area.clientWidth;
+        canvas.height = area.clientHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+
+    function toggleWhiteboard() {
+        isWhiteboardOn = !isWhiteboardOn;
+        let area = document.getElementById('game-area');
+        let btn = document.getElementById('wbBtn');
+        if(isWhiteboardOn) {
+            area.classList.add('whiteboard-active');
+            btn.innerText = "❌ 關閉計算白板";
+            resizeCanvas();
+        } else {
+            area.classList.remove('whiteboard-active');
+            btn.innerText = "🖍 開啟計算白板";
+        }
+    }
+
+    function resetWhiteboard() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        isWhiteboardOn = false;
+        document.getElementById('game-area').classList.remove('whiteboard-active');
+        document.getElementById('wbBtn').innerText = "🖍 開啟計算白板";
+    }
+
+    function startDraw(e) {
+        if(!isWhiteboardOn) return;
+        isDrawing = true;
+        draw(e);
+    }
+    function endDraw() { isDrawing = false; ctx.beginPath(); }
+    function draw(e) {
+        if(!isDrawing || !isWhiteboardOn) return;
+        e.preventDefault();
+        let rect = canvas.getBoundingClientRect();
+        let x = (e.clientX || e.touches[0].clientX) - rect.left;
+        let y = (e.clientY || e.touches[0].clientY) - rect.top;
+        
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#2980B9';
+        
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+    }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchstart', startDraw, {passive: false});
+    canvas.addEventListener('touchend', endDraw);
+    canvas.addEventListener('touchmove', draw, {passive: false});
+
+    // --- 排行榜機制 ---
+    function saveScore() {
+        // 更換 Key 為 jessieMathLeaderboard_v2 以確保排行榜淨空初始狀態
+        let records = JSON.parse(localStorage.getItem('jessieMathLeaderboard_v2') || '[]');
+        let levelNames = ["垂直和平行", "角柱與圓柱", "角錐與圓錐", "球體"];
+        let diffNames = {"90":"基礎", "60":"進階", "45":"魔王"};
+        
+        records.push({
+            name: playerName,
+            level: levelNames[currentLevel],
+            diff: diffNames[document.getElementById('diffSelect').value],
+            score: score,
+            totalQ: currentQuestions.length,
+            date: new Date().toLocaleString('zh-TW', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'})
+        });
+        
+        records.sort((a, b) => b.score - a.score);
+        records = records.slice(0, 10);
+        localStorage.setItem('jessieMathLeaderboard_v2', JSON.stringify(records));
+    }
+
+    function renderLeaderboard() {
+        let records = JSON.parse(localStorage.getItem('jessieMathLeaderboard_v2') || '[]');
+        let html = "";
+        let medals = ["🥇", "🥈", "🥉"];
+        
+        records.forEach((r, i) => {
+            let rank = i < 3 ? medals[i] : `🏵 ${i+1}`;
+            html += `<tr>
+                <td>${rank}</td>
+                <td>${r.name}</td>
+                <td>${r.level}</td>
+                <td>${r.diff}</td>
+                <td>${r.score} / ${r.totalQ}題</td>
+                <td style="font-size:12px;">${r.date}</td>
+            </tr>`;
+        });
+        
+        if(records.length === 0) html = "<tr><td colspan='6'>目前無紀錄，快來成為第一個挑戰者！</td></tr>";
+        document.getElementById('leaderboardBody').innerHTML = html;
+    }
+
+    // 初始化渲染
+    renderLeaderboard();
+</script>
+
+</body>
+</html>
